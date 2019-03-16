@@ -1,0 +1,60 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:U('OptrAdmin/index')}">情况统计</a></li>
+			<li class="active"><a href="{:U('OptrAdmin/log')}">打印日志</a></li>
+			<li ><a href="{:U('OptrAdmin/lists')}">操作员列表</a></li>
+			<li ><a href="{:U('OptrAdmin/add')}">操作员增加</a></li>
+		</ul>
+		
+		<form class="well form-search" method="post" action="{:U('OptrAdmin/log',array("type"=>"apply"))}">
+			操作类型(模糊查找)： 
+			<input type="text" name="operation" style="width: 200px;" value="{:I('request.operation')}" placeholder="请输入具体操作">
+			日期： 
+			<input type="text" class="js-datetime date" name="start" style="width: 200px;" value="{:I('request.start')}" placeholder="请输入开始日期">
+			-
+			<input type="text" class="js-datetime date" name="end" style="width: 200px;" value="{:I('request.end')}" placeholder="请输入结束日期">
+			<input type="submit" class="btn btn-primary" value="搜索" />
+			<a class="btn btn-danger" href="{:U('OptrAdmin/log')}">清空</a>
+		</form>
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">ID</th>
+						<th>操作员账号</th>
+						<th>操作员名称</th>
+						<th>操作IP地址</th>
+						<th>时间</th>
+						<th>操作名称</th>
+						<th>操作次数</th>
+						<th align="center">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<foreach name="list" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo.operator}</td>
+						<td>{$vo['nickname']?$vo['nickname']:"不知名"}</td>
+						<td>{$vo.ip_address}</td>
+						<td>{$vo.time}</td>
+						<td>{$vo.operation}</td>
+						<td>{$vo['count']?$vo['count']:"N/a"}</td>
+						<td align="center">
+							<a href="{:U('OptrAdmin/delLog',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="确定要删除该项记录吗">删除</a>
+							
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

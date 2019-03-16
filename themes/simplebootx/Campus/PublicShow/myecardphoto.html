@@ -1,0 +1,150 @@
+<tc_include file="Campus:header" />
+	<style type="text/css">
+			.show-icon{
+				width: 75%;
+				height: 100%;
+				margin: 0 auto;
+				text-align: center;
+			}
+			.show-icon > img{
+				width: 95%;
+				max-height: 70%;
+			}
+			
+			* {margin:0px; padding:0px;}
+			.STYLE23 {font-size: 21px ; font-family:黑体; color:#000000;}
+			.STYLE23g {font-size: 21px ; font-family:黑体; color:#9E6E48;}
+			.STYLE24 {
+				font-size: 26px;
+				font-family:"经典综艺体简";
+				font-weight: bold;
+				color:#2943A0;
+			}
+			.STYLE25 {font-size: 12px}
+			.STYLE28 {font-size: 12px; font-weight: bold; }
+			.STYLE29 {font-family: "黑体"}
+			.STYLE30 {font-size: 12px; font-weight: bold; font-family: "黑体"; }
+
+			
+		</style>
+</head>
+<body>
+		<div class="weui-form-preview">
+            <div class="weui-form-preview__hd">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">校园卡照片更换</label>
+                </div>
+            </div>
+           	<!-- 用户是否更换过照片？ -->
+           	<notempty name="card">
+           	<!-- 非新人 -->
+           		 <div class="weui-form-preview__bd">
+	                <div class="weui-form-preview__item" style="text-align: center;">
+	                    
+	                    <div class="weui-flex">
+				            <div class="weui-flex__item"><div class="placeholder">原始照片</div></div>
+				            <div class="weui-flex__item"><div class="placeholder">校园卡照片</div></div>
+				        </div>
+				        <div class="weui-flex">
+				            <div class="weui-flex__item">
+				            	<div class="placeholder">
+					            	<div class="show-icon">
+				                    	<img src="{$rawPhoto}" />
+				                    </div>
+				            	</div>
+				            </div>
+				             <div class="weui-flex__item">
+				            	<div class="placeholder">
+					            	<div class="show-icon">
+				                    	<img src="{$uploadedPhoto}" />
+				                    </div>
+				            	</div>
+				            </div>
+				        </div>
+	                </div>
+	                <br />
+	                 <div class="weui-form-preview__item">
+		                    <label class="weui-form-preview__label">姓名</label>
+		                    <span class="weui-form-preview__value">{$card.name}</span>
+		             </div>
+		             <div class="weui-form-preview__item">
+		                  <label class="weui-form-preview__label">最近申请时间</label>
+		                  <span class="weui-form-preview__value">{$card.update_time}</span>
+		             </div>
+		             <div class="weui-form-preview__item">
+		                  <label class="weui-form-preview__label">当前状态</label>
+		                  <span class="weui-form-preview__value">{$status}</span>
+		             </div>
+	            </div>
+           	</notempty>
+            
+            <empty name="card">
+            <!-- 新人 -->
+            		<div class="weui-form-preview__bd">
+		                <div class="weui-form-preview__item" style="text-align: center;">
+		                    <!--<label class="weui-form-preview__label">商品</label>
+		                    <span class="weui-form-preview__value">电动打蛋机</span>-->
+		                    
+		                    
+		                    <div class="weui-flex">
+					   
+					            <div class="weui-flex__item"><div class="placeholder">校园卡照片</div></div>
+					            
+					        </div>
+					        <div class="weui-flex">
+					            <div class="weui-flex__item">
+					            	<div class="placeholder">
+						            	<div class="show-icon"  style="width: 40%;">
+					                    	<img src="{$rawPhoto}" />
+					                    </div>
+					            	</div>
+					            </div>
+					        </div>
+		                </div>
+		                <br />
+		                <div class="weui-form-preview__item">
+		                    <label class="weui-form-preview__label">姓名</label>
+		                    <span class="weui-form-preview__value">{$Think.session.card_user.name}</span>
+		                </div>
+		                <div class="weui-form-preview__item">
+		                  <label class="weui-form-preview__label">最近申请时间</label>
+		                  <span class="weui-form-preview__value">没有申请更换照片</span>
+		             	</div>
+		            </div>
+		            <br/>
+		            <br/>
+            </empty>
+            
+            <div class="weui-form-preview__ft">
+                <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:location.href='{:U("ChangeCard/upload")}'">更换照片</a>
+            </div>
+        </div>
+		
+
+<!-- 模板同学注意不要早早地加上/html -->
+<tc_include file="Campus:footer2" />
+<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$("#weuiAgree").change(function(e){
+					if(e.target.checked){
+						$("#showTooltips").removeClass("weui-btn_disabled");
+					}else{
+						$("#showTooltips").addClass("weui-btn_disabled");
+					}
+				});
+				
+				$("#showTooltips").click((e)=>{
+					
+					if($("#showTooltips").hasClass("weui-btn_disabled")){
+						alert("请先同意条款后再进行操作！");
+					}else{
+						//alert("OK");
+					}
+				});
+				
+				
+			});
+		</script>
+</body>
+</html>

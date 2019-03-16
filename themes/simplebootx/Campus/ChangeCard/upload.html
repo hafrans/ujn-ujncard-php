@@ -1,0 +1,179 @@
+<tc_include file="Campus:header" />
+		<link rel="stylesheet" href="__TMPL__Campus/assets/js/photoClip/style.css" />
+		<link rel="stylesheet" href="__TMPL__Campus/assets/js/topMenu/topMenu.css" />
+		<style>
+			/*body{
+				background: rgb(148,148,148);
+			}*/
+			.h-icon{
+				width: 263px;
+				min-height: 250px;
+				margin: 0 auto;
+				position: relative;
+				top:1.25em;
+				
+			}
+			.h-icon > div{
+				width: 150px;
+				height: 200px;
+				margin: 0 auto;
+				box-shadow: 1px 1px 1px 1px rgba(128,128,128,0.5);
+			}
+			
+			.h-icon img{
+				height: 351px;
+				width: 263px;
+			}
+			.tips{
+				margin:0 1em 1em;
+				border-radius:0.5em;
+				border:0.5px #AAA solid;
+				min-height:2em;
+				padding:0.5em;
+			}
+			.tips > h4 {
+				color:#888;
+				font-size:0.9em;
+			}
+			.tips > div{
+				color:#999;
+				font-size:0.8em;
+				padding:0.1em;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="weui-panel">
+            <div class="weui-panel__hd">2.选择校园卡照片</div>
+            <div class="weui-panel__bd">
+                <div id="headPortrait-interface">
+	
+					<!--头像-->
+					<div id="headPortrait-wrapper" class="h-icon">
+							<div class="icon">
+								<img src="__TMPL__Campus/assets/img/user.png" style="width: 100%;height: 100%;"/>
+							</div> 
+					</div>
+					<div class="tips">
+						<h4>照片标准</h4>
+						<div style="margin:0 0.7em 0 ">
+							{:htmlspecialchars_decode(GETCONFIG('PHOTO_TIPS'))}
+						</div>
+					</div>
+					
+					<div style="padding: 0.5em;">
+						<a href="javascript:void(0);" class="weui-btn weui-btn_primary" id="btn">上传照片</a>
+					</div>
+					
+						
+				</div>
+				
+				
+				
+            </div>
+        </div>
+        
+        <!--<a href="javascript:;" class="weui-btn weui-btn_primary">页面主操作 Normal</a>
+		--> 
+		
+		
+		
+		<div id="photoClip-interface" style="display: none;width: 100%;height: 100%;">
+	
+			<!--顶部菜单-->
+			<div id="topMenu-wrapper2" style="position: absolute; z-index: 99; width: 100%; top: 0;left: 0; height: 2rem;">
+			</div>
+		
+			<!--图片加载-->
+			<div id="photoClip-wrapper">
+				<div class="lazy_tip" id="lazy_tip" style="font-size: 0.8em;" ><span>1%</span><br>	载入中......</div>
+				<div class="lazy_cover"></div>
+				<div class="pic_edit">
+					<div id="clipArea"></div>
+					<input type="file" id="file" style="opacity: 0;position: fixed;bottom: -100px">
+				</div>
+				<img src="" fileName="" id="hit">
+			</div>
+			
+		</div>
+		
+			
+
+
+		<!-- 模板同学注意不要早早地加上/html -->
+		<tc_include file="Campus:footer" />
+		<script type="text/javascript" src="__TMPL__Campus/assets/js/iscroll-zoom.js" ></script>
+		<script type="text/javascript" src="__TMPL__Campus/assets/js/topMenu/topMenu.js" ></script>
+		<script type="text/javascript" src="__TMPL__Campus/assets/js/photoClip/comm.js" ></script>
+        <script type="text/javascript" src="__TMPL__Campus/assets/js/photoClipInterface.js" ></script>
+        <script type="text/javascript" src="__TMPL__Campus/assets/js/photoClip/hammer.js" ></script>
+        <script type="text/javascript" src="__TMPL__Campus/assets/js/photoClip/jquery.photoClip.js" ></script>
+        <script type="text/javascript" src="__TMPL__Campus/assets/js/photoClip/sonic.js" ></script>
+		<script type="text/javascript">
+			
+			var upload = false;
+			var process = false;
+			
+			$(document).ready(function(){
+				photoClipInterfaceInit(
+				"#photoClip-interface",
+				"#photoClip-interface #topMenu-wrapper2 .topMenu-rightName",
+				"#headPortrait-interface",
+				"#headPortrait-interface #headPortrait-wrapper");
+				
+				$("#btn").click(function(){
+					if(process){
+						return false;
+					}
+					if(!upload){
+						alert("请先上传您的照片！");
+						return;
+					}
+					var bool = $.confirm("您确定您上传了符合规定的照片？后果自负","特别提示",function(){
+						
+							
+							$("#btn").addClass("weui-btn_loading");
+							$("#btn").html('<i class="weui-loading"></i>正在处理中');
+							$.ajax({
+								url:"{$Think.server.request_uri}",
+								type:"POST",
+								data:"img="+encodeURI($("#hit").css("backgroundImage").replace(/url\(\"(.*)\"\)/,"$1")),
+								success:function(obj){
+									if(typeof(obj) == "object"){
+										if(obj.status == "ok"){
+											location.href = '{:U("ChangeCard/facecheck")}';
+										}else{
+											alert("上传异常："+obj.msg);	
+										}
+									}else{
+										alert("当前服务器不稳定，请稍后再试！");
+									}
+									process = false;
+									$("#btn").removeClass("weui-btn_loading");
+									$("#btn").html('上传照片');
+								},
+								error:function(obj){
+									alert("当前网络不稳定，请稍后再试！");
+									process = false;
+									$("#btn").removeClass("weui-btn_loading");
+									$("#btn").html('上传照片'); 
+								}
+							});
+							
+							
+						
+					});
+					
+					
+					
+				});
+				
+			});
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<tc_include file="Campus:header" />
+
+</head>
+	<body>
+		
+		
+		
+		<div class="weui-panel">
+            <div class="weui-panel__hd">更换照片前，请谨慎阅读一下协议</div>
+            <div class="weui-panel__bd">
+                <div class="weui-media-box weui-media-box_text">
+                    <h4 class="weui-media-box__title">校园卡更换照片协议</h4>
+                    <p class="weui-media-box__desc" style="display: block;">{:htmlspecialchars_decode(GETCONFIG('PROVISION'))}</p>
+                    <ul class="weui-media-box__info">
+                        <li class="weui-media-box__info__meta"> 教育技术与网络信息中心</li>
+                        <!--<li class="weui-media-box__info__meta">时间</li>
+                        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <label for="weuiAgree" class="weui-agree">
+            <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+            <span class="weui-agree__text">
+             	   阅读并同意上面的条款
+            </span>
+        </label>
+		<div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary weui-btn_disabled" href="javascript:void(0);" id="showTooltips">确定</a>
+        </div>
+       
+        <br />
+        <br />
+
+
+
+
+<!-- 模板同学注意不要早早地加上/html -->
+<tc_include file="Campus:footer" />
+<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$("#weuiAgree").change(function(e){
+					if(e.target.checked){
+						$("#showTooltips").removeClass("weui-btn_disabled");
+					}else{
+						$("#showTooltips").addClass("weui-btn_disabled");
+					}
+				});
+				
+				$("#showTooltips").click((e)=>{
+					
+					if($("#showTooltips").hasClass("weui-btn_disabled")){
+						alert("请先同意条款后再进行操作！");
+					}else{
+						location.href = '{:U("PublicShow/provision",array("action"=>"accept","redirect_uri"=>I("get.redirect_uri")))}';
+					}
+				});
+				
+				
+			});
+		</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<tc_include file="Campus:header" />
+<style type="text/css">
+			.show-icon{
+				width: 75%;
+				max-height: 100%;
+				margin: 0 auto;
+				padding:0 12.5%;
+				text-align: center;
+			}
+			.show-icon > img{
+				width: 100%;
+				height:100%;
+			}
+			
+			* {margin:0px; padding:0px;}
+			.STYLE23 {font-size: 21px ; font-family:黑体; color:#000000;}
+			.STYLE23g {font-size: 21px ; font-family:黑体; color:#9E6E48;}
+			.STYLE24 {
+				font-size: 26px;
+				font-family:"经典综艺体简";
+				font-weight: bold;
+				color:#2943A0;
+			}
+			.STYLE25 {font-size: 12px}
+			.STYLE28 {font-size: 12px; font-weight: bold; }
+			.STYLE29 {font-family: "黑体"}
+			.STYLE30 {font-size: 12px; font-weight: bold; font-family: "黑体"; }
+
+			
+		</style>
+	</head>
+	<body>
+	<div class="weui-form-preview">
+            <div class="weui-form-preview__hd">
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">3.照片初步审核</label>
+                </div>
+            </div>
+            
+            <div class="weui-form-preview__bd">
+                <div class="weui-form-preview__item" style="text-align: center;">
+                    
+                    <div class="weui-flex">
+			            <div class="weui-flex__item"><div class="placeholder">原始照片</div></div>
+			            <div class="weui-flex__item"><div class="placeholder">您上传的照片</div></div>
+			            
+			        </div>
+			        <div class="weui-flex">
+			            <div class="weui-flex__item">
+			            	<div class="placeholder">
+				            	<div class="show-icon">
+			                    	<img id="left_img" /> <!-- {$rawPhoto} -->
+			                    	<div class="weui-loadmore" id="left_cover">
+									  <i class="weui-loading"></i>
+									  <span class="weui-loadmore__tips">正在加载</span>
+									</div>
+			                    </div>
+			            	</div>
+			            </div>
+			             <div class="weui-flex__item">
+			            	<div class="placeholder">
+				            	<div class="show-icon">
+			                    	<img id="right_img" /><!-- src="{$Think.session.imgsrc}" -->
+			                    	<div class="weui-loadmore" id="right_cover">
+									  <i class="weui-loading"></i>
+									  <span class="weui-loadmore__tips">正在加载</span>
+									</div>
+			                    </div>
+			            	</div>
+			            </div>
+			            
+			        </div>
+                    
+                </div>
+               
+               <div id="result" style="display:none;">
+               	 	<div class="weui-form-preview__item">
+	                    <label class="weui-form-preview__label">姓名</label>
+	                    <span class="weui-form-preview__value" id="namae">{$Think.session.card_user.name}</span>
+	                </div>
+	                <div class="weui-form-preview__item">
+	                    <label class="weui-form-preview__label">置信度</label>
+	                    <span class="weui-form-preview__value" id="niai">未测试</span>
+	                </div>
+	                <div class="weui-form-preview__item">
+	                    <label class="weui-form-preview__label">是否合格</label>
+	                    <span class="weui-form-preview__value" style="font-weight: bold;" id="goukaku">未测试</span>
+	                </div>
+               </div>
+               <div id="tip" style="text-align:left">
+               		<p>注意：</p>
+               		<div class="weui-form-preview__item" style="font-size:0.85em;text-align:center;">
+	                    <p>下面将进行脸部相似度识别，识别成功才可继续</p>
+	                    <p>请注意右方照片的<i style="color:red">大小及比例</i>，是否与左方照片相似</p>
+	                </div>
+               </div>
+               <div style="text-align:left">
+               		<div class="weui-form-preview__item" style="font-size:0.85em;text-align:center;">
+	                    <p><b>若不符合标准，即使提交成功也无法更换照片</b></p>
+	                    <p>您只有{$card_fc_time|default="0"}次识别的机会</p>
+	                </div>
+               </div>
+            </div>
+            <div style="padding:0.1em;">
+            	<a href="javascript:void(0);" class="weui-btn weui-btn_primary" id="sbe">识别照片</a>
+            	<a href="javascript:history.back(-1);" class="weui-btn weui-btn_default">重新上传照片</a>
+            </div>
+        </div>
+	
+	
+		
+		<br><br>
+		<!-- tags can not be encapsulated -->	
+	    <tc_include file="Campus:footer" />
+		<script type="text/javascript">
+		
+			var c_state = 0;
+			var times = {$card_fc_time|default="0"};
+			//0 没有提交 / 验证失败
+			//1 验证成功
+			var maxTryTime = 8;
+			var curTryTime = 0;
+			var tryStatus = false;
+			$(document).ready(function(){
+				   $(function(){
+				        var $loadingToast = $('#loadingToast');
+				        $('#sbe').on('click', function(){
+				            if ($("#sbe").hasClass("weui-btn_loading")) return;
+				            if(times < 1){
+				            	$.toast("您已经没有再次识别的机会了","cancel");
+				            	$("#sbe").removeClass("weui-btn_loading");
+								$("#sbe").html('没有再次识别的机会');
+								return;
+				            } 
+				            if(c_state == 0){
+				            	$.ajax({
+					            	url:"{$Think.server.request_uri}",
+					            	type:"POST",
+					            	data:"cmd=check&kms_img={$Think.session.imgsrc}",
+					            	beforeSend:function(j){
+					            		$("#sbe").addClass("weui-btn_loading");
+										$("#sbe").html('<i class="weui-loading"></i>正在处理中');
+										$.showLoading();
+					            	},
+					            	success:function(obj){
+					            		if(typeof(obj) != "object"){
+					            			$.toast("服务器异常","cancel");
+					            			$("#sbe").removeClass("weui-btn_loading");
+											$("#sbe").html('重新识别照片');
+					            			return;
+					            		}
+					            		$.hideLoading();
+					            		if(!obj.check){
+					            			$.toast("检测失败","cancel");
+					            			$("#sbe").removeClass("weui-btn_loading");
+											$("#sbe").html('重新识别照片');
+					            			return;
+					            		}else if(obj.msg != null ){
+					            			
+						            			$.alert("人脸识别错误 :"+obj.msg+"请稍后再试");
+						            			$("#sbe").removeClass("weui-btn_loading");
+												$("#sbe").html('重新识别照片');
+					            			
+					            			return;
+					            			
+					            		}else{
+					            			
+					            			times--;
+					            		}
+					            		
+					            		if(obj.niai >= 0 ){
+					            			$("#niai").text(""+obj.niai+"");
+						            		$("#goukaku").text(obj.goukaku?"合格":"不合格");
+						            		$("#tip").hide(0);
+							            	$("#result").show(0);
+					            		}else{
+					            			$.alert("未识别出人脸，请重试");
+					            		}
+					  
+					            		
+					            		if(obj.goukaku){
+					            			$("#sbe").removeClass("weui-btn_loading");
+											$("#sbe").html('提交申请');
+											c_state = 1;
+					            		}else{
+					            			$("#sbe").removeClass("weui-btn_loading");
+											$("#sbe").html('重新识别照片');
+					            		}
+					            		
+					            	},
+					            	error:function(xobj){
+					            		$.toast("网络不稳定","cancel");
+					            		$("#sbe").removeClass("weui-btn_loading");
+										$("#sbe").html('重新识别照片');
+					            	}
+					            	
+					            });
+				            	
+				            	
+				            	
+				            	
+				            }
+				            if(c_state == 1){
+				            	$.ajax({
+					            	url:"{$Think.server.request_uri}",
+					            	type:"POST",
+					            	data:"cmd=upload&kms_img={$Think.session.imgsrc}",
+					            	beforeSend:function(j){
+					            		$("#sbe").addClass("weui-btn_loading");
+										$("#sbe").html('<i class="weui-loading"></i>正在处理中');
+					            	},
+					            	success:function(obj){
+					            		if(typeof(obj) != "object"){
+					            			$.toast("服务器异常");
+					            			return;
+					            		}
+					            		if(obj.check){
+					            			window.location.href = '{:U("PublicShow/infopage")}';
+					            		}else{
+					            			$.toast("提交失败","cancel");
+					            		}
+					            	},
+					            	error:function(xobj){
+					            		$.toast("网络不稳定","cancel");
+					            	}
+					            	
+					            });
+				            	
+				            	
+				            	$("#sbe").removeClass("weui-btn_loading");
+								$("#sbe").html('提交申请');
+				            	
+				            }
+				           
+				        });
+				        
+				    });
+				   
+				   $("#left_img").attr("src",'{$rawPhoto}');
+				   $("#right_img").attr("src",'{$Think.session.imgsrc}');
+				   $("#left_img").attr("style",'box-shadow:1px 1px 1px 1px gray;');
+				   $("#right_img").attr("style",'box-shadow:1px 1px 1px 1px gray;');
+				   
+				   $("#left_cover").hide();
+				   $("#right_cover").hide();
+				   
+			});
+			
+		</script>
+		
+	</body>
+</html>
+		

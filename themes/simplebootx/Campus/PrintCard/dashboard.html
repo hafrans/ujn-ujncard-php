@@ -1,0 +1,261 @@
+<tc_include file="Campus/pc_header" />
+<link href="__TMPL__Campus/assets/zui/lib/dashboard/zui.dashboard.min.css" rel="stylesheet">
+<link href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome.min.css?page=index"  rel="stylesheet" type="text/css">
+<!--[if IE 7]>
+	<link rel="stylesheet" href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome-ie7.min.css">
+<![endif]-->
+
+<style>
+	html{
+		width:100%;
+		height:100%;
+		position:relative;
+	}
+	body{
+		width:100%;
+		height:100%;
+		position:relative;
+		overflow-x:hidden;
+	}
+	
+	.loading-icon {
+		display:inline-block;
+		transform:rotate(120deg);
+		transform-origin:32% 50%;
+		-webkit-transform-origin:32% 50%;
+		-ms-transform-origin:32% 50%;
+		-o-transform-origin:32% 50%;
+		-moz-transform-origin:32% 50%;
+		
+		animation: loading2 1s linear 0s infinite;
+	}
+	@keyframes loading2{
+		from{
+			transform:rotate(0deg);
+		}
+		to {
+			transform:rotate(360deg);
+		}
+	}
+	
+	.navbar{
+		width:100%;
+		background:rgb(44,62,80);
+		height:60px;
+		line-height:450%;
+		padding:0 0.75em;
+		box-radius:0;
+		position:relative;
+	}
+	.brand{
+		font-size:1.5em;
+		color:#EFF;
+	}
+	.rd{
+		position:absolute;
+		height:100%;
+		width:100%;
+		left:0;
+		top:0;
+		background:transparent;
+		opacity:0;
+		border-radius:0.2em;
+	}
+	
+	label.rdl{
+		position:absolute;
+		height:120%;
+		width:120%;
+		left:-10%;
+		top:-10%;
+		background:transparent;
+		z-index:-88;
+		border-radius:0.6em;
+		
+	}
+	
+	.rd:checked + label{
+		background:rgba(18,53,85,0.6);
+	}
+	img{
+		event-pointer:none;
+	}
+	
+
+</style>
+
+</head>
+<body>
+	
+	<tc_include file="Campus:pc_nav_header" />
+	
+	<div class="container-fluid" style="height:85%;">
+				
+		<div class="row" style="height:100%;">
+			<div class="col-xs-12 col-md-2" style="height:100%;">
+				<tc_include file="Campus:dashboard_left" />
+			</div>
+			<div class="col-xs-12 col-md-10" style="height:100%;">
+				<div class="panel" style="height:100%;">
+				  <div class="panel-body" style="height:100%;overflow-y:scroll">
+				   	<tc_include file="Campus:PrintCard/dashboard_right_board"/>
+				  </div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	<!-- 肮脏的打印机插件 -->
+<tc_include file="Campus/pc_footer" />
+<div class="modal fade" id="selectPhoto">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title">照片选择</h4>
+	    </div>
+	    <div class="modal-body" style="position:relative;min-height:100px;">
+	        <div class="row" id="1" style="display:none">
+	        	<div class="col-xs-6">
+	        		<div style="text-align:center;margin:1em auto;width:75%;">
+	        			<span>校园卡照片</span><br>
+	        			<img id="single_Left" style="width:120px;box-shadow:1px 1px 1px 1px gray" />
+	        		</div>	        		
+	        	</div>
+	        	<div class="col-xs-6">
+	        		<ul class="list-group" style="margin-top:2em;">
+					  <li class="list-group-item">姓名：<span id="s_xm">FILL</span></li>
+					  <li class="list-group-item">性别：<span id="s_xb">FILL</span></li>
+					  <li class="list-group-item">部门：<span id="s_bm">FILL</span></li>
+					  <li class="list-group-item">班级：<span id="s_de">FILL</span></li>
+					  <li class="list-group-item">身份：<span id="s_sf">FILL</span></li>
+					</ul>
+	        	</div>
+	        </div>
+	        
+	        <div class="row" id="2" style="display:none">
+	        	<div class="col-xs-6">
+	        		<div class="row">
+	        			<div class="col-xs-12">
+	        			<p style="text-align:center;">请单击选择一张照片作为校园卡照片</p>	
+	        			</div>
+	        			<div class="col-xs-1">
+	        			</div>
+	        			<div class="col-xs-5">
+		        			<div style="text-align:center;margin:1em auto;width:70%;position:relative">
+			        			<p><span>入籍照片</span></p>
+			        			<img id="double_Left" style="width:120px;box-shadow:1px 1px 1px 1px gray" />
+			        			<input type="radio" name="pho" value="1" class="rd" id="ll_left" checked="" />
+			        			<label class="rdl" for="ll_left"></label>
+			        		</div>	 
+	        			</div>
+	        			<div class="col-xs-5">
+	        				<div style="text-align:center;margin:1em auto;width:70%;position:relative">
+			        			<p><span>自定义照片</span></p>
+			        			<img id="double_Right" style="width:120px;box-shadow:1px 1px 1px 1px gray" />
+			        			<input type="radio" name="pho" value="r" class="rd" id="ll_right" checked="" />
+			        			<label class="rdl" for="ll_right"></label>
+			        		</div>	 
+	        			</div>
+	        			<div class="col-xs-1">
+	        			</div>
+	        			<div class="col-xs-2">
+	        			</div>
+	        			<div class="col-xs-8">
+	        				<br><br>
+							 <p style="text-align:center"> 
+							  	相似度：<span id="d_co">FILL</span></li>
+							 </p> 
+							
+	        			</div>
+	        			<div class="col-xs-2">
+	        			</div>
+	        		</div>       		
+	        	</div>
+	        	<div class="col-xs-6">
+	        		<ul class="list-group" style="margin-top:0.5em;">
+					  <li class="list-group-item">姓名：<span id="d_xm">FILL</span></li>
+					  <li class="list-group-item">性别：<span id="d_xb">FILL</span></li>
+					  <li class="list-group-item">班级：<span id="d_de">FILL</span></li>
+					  <li class="list-group-item">部门：<span id="d_bm">FILL</span></li>
+					  <li class="list-group-item">身份：<span id="d_sf">FILL</span></li>
+					  <li class="list-group-item">照片申请时间：<span id="d_ti">FILL</span></li>
+					  <li class="list-group-item">状态：<span id="d_st">FILL</span></li>
+					</ul>
+	        	</div>
+	        </div>
+	        
+	        <div class="row" id="3">
+	        	<div class="col-xs-12" style="height:100px;background:url(__TMPL__Campus/assets/img/loading.gif) center no-repeat; background-size:50%;"></div>
+	        </div>
+	        
+	        <div class="row" id="4" style="display:none">
+	        	<div class="col-xs-12" >
+	        		<h2 style="text-align:center">网络不稳定，请稍后再试</h2>
+	        		<div style="padding: 3em 10em;font-size:1.25em" >
+	        			<ul>
+	        				<li>请检查是否能连接到网络</li>
+	        				<li>请过30秒后再次重试</li>
+	        				<li>请及时联系管理员</li>
+	        			</ul>
+	        		</div>
+	        	</div>
+	        </div>
+	        
+	        <div class="row" id="5" style="display:none">
+	        	<div class="col-xs-12" >
+	        		<h2 style="text-align:center">从服务器传来的信息</h2>
+	        		<div style="padding: 3em 10em;font-size:1.25em;text-align:center;" >
+	        			<p id="server-info">xxxx</p>
+	        		</div>
+	        	</div>
+	        </div>
+	        
+	    </div>
+	    <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary" id="btn-print" style="display:none">制作校园卡</button>
+	    </div>
+    </div>
+  </div>
+</div>
+<script src="__TMPL__Campus/assets/zui/lib/dashboard/zui.dashboard.min.js"></script>
+<script>postURI = '{:U("PrintCard/selectphoto")}';
+		printURI = '{:U("PrintCard/printcard")}'
+		$('#p_d').addClass("active");
+		//查询记录
+		//$('table.datatable').datatable();
+		setInterval(function(){
+			$.ajax({
+				url:"{:U('PrintCard/workload')}",
+				type:"POST",
+				success:function(obj){
+					if(typeof(obj) == 'object'){
+						if(obj.status == 'ok'){
+							var len = obj.count;
+							$("#my_operations")[0].innerHTML = "";
+							if(len > 0){
+								for(var i = 0 ; i < len ;++i){
+									$("#my_operations").html($("#my_operations").html()+"<tr><td>"+obj.load[i].operation+"</td><td>"+obj.load[i].time+"</td></tr>");
+								}
+							}else{
+								$("#my_operations").html('<tr><td colspan="2" style="text-align:center;">现在还没有工作记录呢~</td></tr>');
+							}
+						}else{
+							$("#my_operations").html('<tr><td colspan="2" style="text-align:center;">现在还没有工作记录呢~</td></tr>');
+						}
+					}
+				},
+				error:function(obj){
+					$("#my_operations").html('<tr><td colspan="2" style="text-align:center;">现在还没有工作记录呢~</td></tr>');
+				}
+			});
+			
+		},5000);
+		
+		</script>
+<script src="__TMPL__Campus/assets/js/dashboardPrint.js"></script>
+
+
+	</body>
+</html>

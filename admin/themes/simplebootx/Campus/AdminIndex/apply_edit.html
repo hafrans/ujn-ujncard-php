@@ -1,0 +1,73 @@
+<admintpl file="header" />
+<style>
+	.row-fluid img{
+		width:120px;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:U('AdminIndex/index')}">情况统计</a></li>
+			<li ><a href="{:U('AdminIndex/setting')}">申请系统设置</a></li>
+			<li ><a href="{:U('AdminIndex/log',array('type'=>"apply"))}">照片申请列表</a></li>
+			<li class="active"><a href="">照片审核状态修改</a></li>
+		</ul>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				
+				<div class="span2  offset1">
+					入籍照片
+				</div>
+				<div class="span2">
+					请求要更换的照片
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span2 offset1">
+					<img src="{:getEntranceImageURIByCardno($data['showcardno'])}"/>
+				</div>
+				<div class="span2">
+					<img src="{$data.path}"/>
+				</div>
+			</div>
+			<br>
+			<div class="row-fluid">
+				<div class="offset1 span1">
+				</div>
+				<div class="span2">
+					置信度:{$data.confidence}
+				</div>
+			</div>
+			<br>
+			<br/>
+			<form class="form-horizontal" action="{:U("AdminIndex/apply_edit",array("action"=>"submit"))}" method="post">
+				
+				<input type="hidden" name="id" value="{$Think.request.id}" />
+				<div class="control-group">
+    				<label class="control-label" for="kms">审核状态</label>
+    				<div class="controls" >
+     					 <select name="status" class="control-group" id="kms">
+							<option value="1">等待面审</option>
+							<option value="2" disabled>审核通过</option>
+							<option value="3">审核失败</option>
+						 </select>
+    				</div>
+  				</div>
+  				<div class="form-actions">
+  					 <button type="submit" class="btn btn-primary" class="js-ajax-dialog-btn">确认修改</button>
+ 					<!-- <button type="button" class="btn">Cancel</button> -->
+				</div>
+				
+			</form>
+			
+			
+		
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		document.getElementById("kms").options[{$data.status}-1].selected = true;
+	</script>
+</body>
+</html>

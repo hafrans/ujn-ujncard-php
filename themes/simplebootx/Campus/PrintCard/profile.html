@@ -1,0 +1,146 @@
+<tc_include file="Campus/pc_header" />
+<link href="__TMPL__Campus/assets/zui/lib/dashboard/zui.dashboard.min.css" rel="stylesheet">
+<link href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome.min.css?page=index"  rel="stylesheet" type="text/css">
+<!--[if IE 7]>
+	<link rel="stylesheet" href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome-ie7.min.css">
+<![endif]-->
+
+<style>
+	html{
+		width:100%;
+		height:100%;
+		position:relative;
+	}
+	body{
+		width:100%;
+		height:100%;
+		position:relative;
+		overflow-x:hidden;
+	}
+	
+	.loading-icon {
+		display:inline-block;
+		transform:rotate(120deg);
+		transform-origin:32% 50%;
+		-webkit-transform-origin:32% 50%;
+		-ms-transform-origin:32% 50%;
+		-o-transform-origin:32% 50%;
+		-moz-transform-origin:32% 50%;
+		
+		animation: loading2 1s linear 0s infinite;
+	}
+	@keyframes loading2{
+		from{
+			transform:rotate(0deg);
+		}
+		to {
+			transform:rotate(360deg);
+		}
+	}
+	
+	.navbar{
+		width:100%;
+		background:rgb(44,62,80);
+		height:60px;
+		line-height:450%;
+		padding:0 0.75em;
+		box-radius:0;
+		position:relative;
+	}
+	.brand{
+		font-size:1.5em;
+		color:#EFF;
+	}
+
+	.profiles{
+		font-size:1.25em !important;
+		color:#666;	
+	}
+	.profiles h2{
+		color:#222;	
+	}
+	
+	
+
+</style>
+
+</head>
+<body>
+	
+	<tc_include file="Campus:pc_nav_header" />
+	
+	<div class="container-fluid" style="height:85%;">
+		<div class="row" style="height:100%;">
+			<div class="col-xs-12 col-md-2" style="height:100%;">
+				<tc_include file="Campus:dashboard_left" />
+			</div>
+			<div class="col-xs-12 col-md-10" style="height:100%;">
+				<div class="panel" style="height:100%;">
+				  <div class="panel-body" style="height:100%;overflow-y:scroll">
+				   		<div class="row profiles">
+				   			<div class="col-xs-12">
+				   				<h2>个人资料</h2>
+				   			</div>
+				   			<div class="col-xs-12">
+				   				<table class="table table-bordered" style="width:400px">
+				   					<tbody>
+				   						<tr><th>账号名</th><td>{$Think.session.optr.operator}</td></tr>
+				   						<tr><th>昵称</th><td>{$Think.session.optr.nickname}</td></tr>
+				   						<tr><th>本次登录时间</th><td>{$Think.session.optr.last_login_time}</td></tr>
+				   						<tr><th>本次登陆IP</th><td>{$Think.session.optr.last_login_ip}</td></tr>
+				   						<tr><th>密码</th><td><input class="form-control" id="pass" type="password" name="password" value="" placeholder="********"/></td></tr>
+				   						<tr><td colspan="2" style="text-align:right"><button class="btn btn-primary" id="submiter">修改密码</button></td>
+				   					</tbody>
+				   				</table>
+				   			</div>
+				   		</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+<tc_include file="Campus/pc_footer" />
+
+<script src="__TMPL__Campus/assets/zui/lib/dashboard/zui.dashboard.min.js"></script>
+<script>postURI = '{:U("PrintCard/selectphoto")}';
+		printURI = '{:U("PrintCard/printcard")}'
+		$('#p_p').addClass("active");
+		//查询记录
+		//$('table.datatable').datatable();
+		$(document).ready(function (){
+			$("#submiter").click(function (){
+				if($('#pass').val().length <= 3 || $('#pass').val().length > 16){
+					alert("密码长度不小于3，不大于16");
+					return;
+				}
+				$.ajax({
+					url:"{:U('PrintCard/changepassword')}",
+					type:"POST",
+					data:'pass='+$('#pass').val(),
+					success:function(obj){
+						if(obj.status){
+							alert("密码修改成功！");
+						}else{
+							alert('密码修改失败！');
+						}
+					},
+					error:function(){
+						
+						alert("网络异常！");
+						
+					}
+					
+					
+				});
+			});
+		});
+		
+		</script>
+		
+		
+
+
+
+	</body>
+</html>

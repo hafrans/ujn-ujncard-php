@@ -1,0 +1,43 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:U('OptrAdmin/index')}">情况统计</a></li>
+			<li ><a href="{:U('OptrAdmin/log')}">打印日志</a></li>
+			<li ><a href="{:U('OptrAdmin/lists')}">操作员列表</a></li>
+			<li ><a href="{:U('OptrAdmin/add')}">操作员增加</a></li>
+			<li class="active"><a href="">操作员编辑</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('OptrAdmin/edit')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">账号</label>
+					<div class="controls">
+						<input type="text" name="operator" value="{$operator}" disabled>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">昵称</label>
+					<div class="controls">
+						<input type="text" name="nickname" value="{$nickname}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">密码</label>
+					<div class="controls">
+						<input type="password" name="password" value="" placeholder="******">
+					</div>
+				</div>
+				
+			</fieldset>
+			<div class="form-actions">
+				<input type="hidden" name="id" value="{$id}" />
+				<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+				<a class="btn" href="javascript:history.back(-1);">返回</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

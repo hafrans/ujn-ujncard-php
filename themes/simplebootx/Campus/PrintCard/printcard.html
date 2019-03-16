@@ -1,0 +1,182 @@
+<tc_include file="Campus:pc_header"/>
+	<style type="text/css" id="style1">
+		* {margin:0px; padding:0px;}
+		.STYLE23 {font-size: 21px ; font-family:黑体; color:#000000;}
+		.STYLE23g {font-size: 21px ; font-family:黑体; color:#9E6E48;}
+		.STYLE24 {
+			font-size: 26px;
+			font-family:"经典综艺体简" !important;
+			font-weight: bold;
+			color:#2943A0;
+		}
+		table#card{
+			position:absolute;
+			left:0;
+			top:2mm;
+			background:transparent;
+		}
+		.STYLE25 {font-size: 12px}
+		.STYLE28 {font-size: 12px; font-weight: bold; }
+		.STYLE29 {font-family: "黑体" important;}
+		.STYLE30 {font-size: 12px; font-weight: bold; font-family: "黑体" important; }
+		</style>
+		<script type="text/javascript" src="__TMPL__Campus/assets/js/LodopFuncs.js"></script>
+		
+	</head>
+	<body>
+		<img src="__TMPL__Campus/assets/img/background.jpg" width="502" height="330" style="position:absolute;top:0;left:0;z-index:-99" />
+		<table id="card" width="500" height="314" border="0" cellpadding="0" cellspacing="0" >
+		    <tr>
+		      <td width="185" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+		          <tr>
+		            <td height="40" valign="bottom" style="padding-left:45px; "><span class="STYLE24"><if condition="$bundle.statusname == '教师'">教师卡<else/>学生卡</if></span></td>
+		          </tr>
+		          <tr>
+		            <td height="26" style="padding-left:27px;"><span class="STYLE23">{$bundle.showcardno}</span></td>
+		          </tr>
+		          <tr>
+		            <td style="padding-left:19px;"><img src="{$bundle.photo}" width="130" height="174" /></td>
+		          </tr>
+		          <tr>
+		            <td style="padding-top:7px; padding-left:22px; line-height:16px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                <tr>
+		                  <td width="65" height="19"><span class="STYLE30">挂失电话：</span></td>
+		                  <td><span class="STYLE30">89736003 6004</span></td>
+		                </tr>
+		                <tr>
+		                  <td height="19"><span class="STYLE30">咨询电话：</span></td>
+		                  <td><span class="STYLE30">89736009</span></td>
+		                </tr>
+		                <tr>
+		                  <td height="19"><span class="STYLE29"><span class="STYLE28">舜耕校区：</span></span></td>
+		                  <td><span class="STYLE30"> 89736033</span></td>
+		                </tr>
+		            </table></td>
+		          </tr>
+		      </table></td>
+		      <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+		          <tr>
+		            <td width="7%">&nbsp;</td>
+		            <td width="22%">&nbsp;</td>
+		            <td width="71%" height="38">&nbsp;</td>
+		          </tr>
+		          <tr>
+		            <td class="STYLE23">&nbsp;</td>
+		            <td class="STYLE23">姓名：</td>
+		            <td height="31" class="STYLE23">{$bundle.name}</td>
+		          </tr>
+		          <tr>
+		            <td class="STYLE23">&nbsp;</td>
+		            <td class="STYLE23">性别：</td>
+		            <td height="31" class="STYLE23">{$bundle.sex}</td>
+		          </tr>
+		          <tr>
+		            <td class="STYLE23">&nbsp;</td>
+		            <td class="STYLE23"><if condition="$bundle.statusname == '教师'">部门<else/>学院</if>：</td>
+		            <td height="32" class="STYLE23"><if condition="$bundle.statusname == '研究生'">{$bundle.dept}<else/>{$bundle.depttop}</if></td>
+		          </tr>
+		          <tr>
+		            <td class="STYLE23">&nbsp;</td>
+		            <td class="STYLE23">身份：</td>
+		            <td height="32" class="STYLE23">{$bundle.statusname}</td>
+		          </tr>
+		        </table>
+		          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		            <tr>
+		              <td style="padding-top:20px; padding-left:0px; line-height:19px; "><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                  <tr>
+		                    <td height="20" colspan="2"><div align="center" class="STYLE25 STYLE29"><strong>注意事项</strong></div></td>
+		                  </tr>
+		                  <tr>
+		                    <td width="6%" height="20"><span class="STYLE28 STYLE25 STYLE29">1、</span></td>
+		                    <td width="94%" height="20"><span class="STYLE28 STYLE25 STYLE29">本卡是济南大学发放的集校务、金融、证件功能为</span></td>
+		                  </tr>
+		                  <tr>
+		                    <td height="20">&nbsp;</td>
+		                    <td height="20"><span class="STYLE28 STYLE25 STYLE29"> 一体的校园综合信息证件卡；</span></td>
+		                  </tr>
+		                  <tr>
+		                    <td height="20"><span class="STYLE28 STYLE25 STYLE29">2、</span></td>
+		                    <td height="20" valign="top"><span class="STYLE28 STYLE25 STYLE29">不得将卡片转让、抵押、涂改、伪造、弯折或穿孔；</span></td>
+		                  </tr>
+		                  <tr>
+		                    <td height="20"><span class="STYLE28 STYLE25 STYLE29">3、</span></td>
+		                    <td height="20"><span class="STYLE28 STYLE25 STYLE29">如有遗失，请立即挂失。</span></td>
+		                  </tr>
+		                  <tr>
+		                    <td height="20" colspan="2"><div align="center" class="STYLE25 STYLE29"><strong>http://ecampus.ujn.edu.cn</strong></div></td>
+		                  </tr>
+		              </table></td>
+		            </tr>
+		        </table></td>
+		    </tr>
+		  </table>
+		  <br>
+		  <div style="text-align:right;position:absolute;top:335px;right:0px;" id="btn" class="container">
+		  	<button class="btn btn-primary" onclick="CheckIsInstall()">打印预览</button>
+		  </div>
+		  <script type="text/javascript">
+		//===判断是否需要安装CLodop云打印服务器(针对不支持np插件的浏览器)===
+		 	    
+			function CheckIsInstall() {	 
+				LODOP=getLodop();
+				var strBodyStyle="<style>"+document.getElementById("style1").innerHTML+"body{width:500px;height:314px;overflow:hidden;}#btn{display:none;}</style>";
+				LODOP.PRINT_INIT("校园卡打印");
+				LODOP.SET_PRINT_PAGESIZE(2,"53.98mm","85.6mm","HAFRANS");
+				LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
+				//LODOP.SET_PRINT_PAGESIZE(1,856,539.8,"HAFRANS");
+				LODOP.ADD_PRINT_HTM("0%","0%","100%","100%",strBodyStyle+document.body.innerHTML);
+				LODOP.SET_PRINT_MODE("FULL_WIDTH_FOR_OVERFLOW",true);//对于单页输出，如希望内容超出纸宽或纸高时对应缩小，用如下俩语句：
+				LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);
+				LODOP.SET_PREVIEW_WINDOW(0,1,0,700,500,"打印对象：{$bundle.name}");//打印前弹出选择打印机的对话框	
+				LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
+
+				//var taskid = LODOP.PREVIEW();
+				LODOP.On_Return=function(TaskID,Value){
+					if(Value > 0 ){
+						
+						parent.$.ajax({
+							url:'{:U('PrintCard/printResponse')}',
+							type:"POST",
+							data:"count="+Value+"&pos="+parent.$(".rd:checked").val(),
+							success:function(obj){
+								if(obj.status){
+									new parent.$.zui.Messager('您成功打印了'+Value+"次", {
+									    type: 'success' ,
+									    placement:'top-right'
+									}).show();
+								}else{
+									new parent.$.zui.Messager('您成功打印了'+Value+"次,但是系统未成功记录。", {
+									    type: 'success' ,
+									    placement:'top-right'
+									}).show();
+								}
+								parent.window.previewPage.close();
+							},
+							error:function(xobj){
+								new parent.$.zui.Messager('您成功打印了'+Value+"次,但是系统未成功记录。", {
+								    type: 'success' ,
+								    placement:'top-right'
+								}).show();
+								parent.window.previewPage.close();
+							}
+						});
+						
+					}else{
+						new parent.$.zui.Messager('您没有成功打印校园卡', {
+						    type: 'info' ,
+						    placement:'top-right'
+						}).show();
+						parent.window.previewPage.close();
+					}
+				}
+				 LODOP.PREVIEW();
+			}
+			window.onload = function(){
+				setTimeout(CheckIsInstall,200);
+			}
+
+		  	
+		  </script>
+	</body>
+</html>

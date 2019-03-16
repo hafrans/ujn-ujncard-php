@@ -1,0 +1,44 @@
+<tc_include file="Campus:header" />
+</head>
+<body>
+
+<div class="weui-msg">
+  <div class="weui-msg__icon-area"><i class="weui-icon-waiting weui-icon_msg"></i></div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">DEBUG</h2>
+   <!--   <p class="weui-msg__desc">输入邀请码</p>  -->
+
+               		
+
+  </div>
+  <form action="{$Think.server.request_uri}" method="post">
+  	<div class="weui-cells weui-cells_form" >
+					  <div class="weui-cell" id="status">
+					    <div class="weui-cell__bd">
+					      <input class="weui-input" type="number" name="c" placeholder="请输入校园卡号码">
+					    </div>
+					    <div class="weui-cell__ft">
+					      <i class="weui-icon-warn"></i>
+					    </div>
+					  </div>
+					 
+	</div>
+  
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <input type="submit" class="weui-btn weui-btn_primary" value="确定" />
+    </p>
+  </div>
+  
+  
+  
+  </form>
+ 
+</div>
+
+	<!-- tags can not be encapsulated -->	
+	    <tc_include file="Campus:footer2" />
+	  
+
+	    </body>
+	</html>

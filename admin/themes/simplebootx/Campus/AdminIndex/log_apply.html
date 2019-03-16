@@ -1,0 +1,65 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:U('AdminIndex/index')}">情况统计</a></li>
+			<li ><a href="{:U('AdminIndex/setting')}">申请系统设置</a></li>
+			<li class="active"><a href="{:U('AdminIndex/log',array("type"=>"apply"))}">照片申请列表</a></li>
+			<li ><a>照片审核状态修改</a></li>
+		</ul>
+		
+		<form class="well form-search" method="post" action="{:U('AdminIndex/log',array("type"=>"apply"))}">
+			校园卡号(模糊查找)： 
+			<input type="text" name="showcardno" style="width: 200px;" value="{:I('request.showcardno')}" placeholder="请输入校园卡号">
+			<input type="submit" class="btn btn-primary" value="搜索" />
+			<a class="btn btn-danger" href="{:U('AdminIndex/log',array("type"=>"apply"))}">清空</a>
+		</form>
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">ID</th>
+						<th>校园卡号</th>
+						<th>用户名</th>
+						<th>最初申请时间</th>
+						<th>最近申请时间</th>
+						<th>申请次数</th>
+						<th>照片置信度</th>
+						<th>申请状态</th>
+						<th>可用</th>
+						<th align="center">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<foreach name="list" item="vo">
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo.showcardno}</td>
+						<td>{$vo['name']?$vo['name']:"不知名"}</td>
+						<td>{$vo.create_time}</td>
+						<td>{$vo.update_time}</td>
+						<td>{$vo.times}</td>
+						<td>{$vo['confidence']?$vo['confidence']:"N/a"}%</td>
+						<td>{$vo['status'] == 1?"等待当面审核":($vo['status'] == 2?"审核成功":($vo['status']==3?"审核失败":"未知"))}</td>
+						<td>{$vo['available'] == 1?"可用":"禁用"}</td> 
+						<td align="center">
+							<a href="{:U('AdminIndex/apply_edit',array('id'=>$vo['id']))}">编辑</a>
+							| 
+							<if condition="$vo.available == 1">
+								<a href="{:U('AdminIndex/apply_ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定禁用此用户使用照片更换申请吗">禁用</a>
+							<else/>
+								<a href="{:U('AdminIndex/apply_cancelban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定启用此用户使用照片更换申请吗">启用</a>
+							</if>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

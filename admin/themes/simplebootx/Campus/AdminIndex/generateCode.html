@@ -1,0 +1,63 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:U('AdminIndex/invitationCode')}">邀请码列表</a></li>
+			<li class="active"><a href="{:U('AdminIndex/generateCode')}">生成邀请码</a></li>
+			<li ><a href="{:U('AdminIndex/invitationLog')}">邀请码记录</a></li>
+		</ul>
+		<form action="{:U('AdminIndex/generateCode')}" method="post" class="form-horizontal js-ajax-form" id="forms">
+			<div class="row-fluid">
+				<div class="span9">
+					<table class="table table-bordered">
+						<tr>
+							<th width="80">生成公式</th>
+							<td>
+								<input required="required" type="text" style="width: 600px;" name="equation" id="equation" value="{$Think.request.equation|default='2017%r%rZpa%r%d%r%r%rZpa%r%d%r%r%rZpa%r%d%r'}" placeholder="例：2017%r%r%rz%a%D"/>
+								<span class="form-required">*</span>
+							</td>
+						</tr>
+						<tr>
+							<th>公式说明</th>
+							<td>
+								<h4>本系统采用的是HafransHaze表达式，您可以通过本表达式生成自定义随机码</h4>
+								<h5>使用方法：</h5>
+								<div>
+									<ul>
+										<li>您可以在表达式中填写以下字符0-9A-Za-z表示产生的随机码固定位置的字符</li>
+										<li>在公式中添加约束字来标记随机字符的位置</li>
+										<li>%d : 随机0-9数字字符</li> 
+										<li>%D : 随机非数字字符</li>
+										<li>%a : 随机小写字母</li>
+										<li>%A : 随机大写字母</li>
+										<li>%r : 随机字符  </li>
+										<li>例如: 2017%r%rZpa%r%d%r</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>最大数量</th>
+							<td><input required="required" type="number" name="count" id="count" value="{$Think.request.count}" style="width: 280px" placeholder="请输入数量" value="10"><span class="form-required">*</span>注意，在字符串长度小并且生成数量大时会造成错误</td>
+						</tr>
+						<tr>
+							<th>截至日期</th>
+							<td><input required="required" type="text" class="js-datetime" name="expire" id="expires" style="width: 280px" placeholder="请输入日期" value="{:date('Y-m-d H:i:s',time()+3600*24*180)}"><span class="form-required">*</span></td>
+						</tr>
+						
+					</table>
+				</div>
+				 
+			</div>
+			<div class="form-actions">
+				<button class="btn btn-primary js-ajax-submit" type="submit">{:L('ADD')}</button>
+				
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+
+	
+</body>
+</html>

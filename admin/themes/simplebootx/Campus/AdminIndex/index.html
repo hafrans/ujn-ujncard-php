@@ -1,0 +1,19 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('AdminIndex/index')}">情况统计</a></li>
+			<li ><a href="{:U('AdminIndex/setting')}">申请系统设置</a></li>
+			<li ><a href="{:U('AdminIndex/log',array("type"=>"apply"))}">照片申请列表</a></li>
+			<li ><a>照片审核状态修改</a></li>
+		</ul>
+		<div class="container-fluid">
+			<br>
+			校园卡照片更换管理后台<br>
+			<admintpl file="version" />
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

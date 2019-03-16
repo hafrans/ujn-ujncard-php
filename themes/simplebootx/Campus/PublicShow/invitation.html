@@ -1,0 +1,87 @@
+<tc_include file="Campus:header" />
+</head>
+<body>
+
+<div class="weui-msg">
+  <div class="weui-msg__icon-area"><i class="weui-icon-waiting weui-icon_msg"></i></div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">请输入U码</h2>
+   <!--   <p class="weui-msg__desc">输入邀请码</p>  -->
+
+               		
+
+  </div>
+  <form onsubmit="return hafrans(this)">
+  	<div class="weui-cells weui-cells_form" >
+					  <div class="weui-cell" id="status">
+					    <div class="weui-cell__bd">
+					      <input class="weui-input" type="text" name="code" pattern="^[0-9a-zA-Z]*$"  placeholder="请输入U码">
+					    </div>
+					    <div class="weui-cell__ft">
+					      <i class="weui-icon-warn"></i>
+					    </div>
+					  </div>
+	</div>
+  
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <input type="submit" class="weui-btn weui-btn_primary" value="确定" />
+    </p>
+  </div>
+  
+  
+  
+  </form>
+ 
+</div>
+
+	<!-- tags can not be encapsulated -->	
+	    <tc_include file="Campus:footer2" />
+	    <script type="text/javascript">
+	    	function hafrans(obj){
+	    		if(obj.code.value.length <= 0){
+	    			$.alert("U码为空！", "警告", function() {
+	    				});
+	    			return false;
+	    		}
+	    		if(!obj.code.value.match(/^[0-9a-zA-Z]*$/)){
+	    			$.alert("U码的样式不合法！", "警告", function() {
+    				});
+	    			return false;
+	    		}
+	    		$.ajax({
+	    			url:"{$Think.server.request_uri)}",
+	    			type:"POST",
+	    			data:"code="+obj.code.value,
+	    			beforeSend:function(){
+	    				$.showLoading();
+	    			},
+	    			success:function(obj){
+	    				$.hideLoading();
+	    				if(typeof(obj) == "object"){
+	    					if(obj.status){
+	    						if(obj.check){
+	    							location.href= "{$Think.request.redirect_uri}";
+	    						}else{
+	    							$.toast("U码错误","cancel");
+	    						}
+	    					}else{
+	    						$.toast("太快了，歇一会","cancel");
+	    					}
+	    				}else{
+	    					$.toast("服务器故障","cancel");
+	    				}
+	    			},
+	    			error:function(){
+	    				$.toast("网络异常","cancel");
+	    			}
+	    		});
+	    		
+	    		
+	    		
+	    		
+	    		return false;
+	    	}
+	    </script>
+	    </body>
+	</html>

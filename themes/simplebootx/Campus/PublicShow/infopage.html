@@ -1,0 +1,27 @@
+<tc_include file="Campus:header" />
+</head>
+<body>
+
+<div class="weui-msg">
+  <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">申请成功</h2>
+    <p class="weui-msg__desc">您好{$Think.session.card_user.name}，您的校园卡请求提交成功，您可以在适当的时间去校园卡业务部进行当场审核并打印新校园卡。</p>
+ 	 <div style="text-align:left" class="weui-msg__desc">
+               		<div class="weui-form-preview__item" style="text-align:center;">
+	                    <p><b>PS:若不符合标准，即使提交成功也无法更换照片</b></p>
+	                </div>
+     </div>
+  </div>
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <a href="javascript:WeixinJSBridge.call('closeWindow');" class="weui-btn weui-btn_primary">确定</a>
+    </p>
+  </div>
+ 
+</div>
+
+	<!-- tags can not be encapsulated -->	
+	    <tc_include file="Campus:footer2" />
+	    </body>
+	</html>
